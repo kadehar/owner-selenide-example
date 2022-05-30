@@ -1,0 +1,36 @@
+plugins {
+    id 'java-library'
+}
+
+group 'guru.qa'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    def selenideVersion = "6.4.0"
+    def junitVersion = "5.8.2"
+    def ownerVersion = "1.0.12"
+
+    testImplementation("org.aeonbits.owner:owner:$ownerVersion",
+            "com.codeborne:selenide:$selenideVersion",
+            "org.junit.jupiter:junit-jupiter-api:$junitVersion")
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+tasks.withType(Test) {
+    systemProperties = System.properties
+}
